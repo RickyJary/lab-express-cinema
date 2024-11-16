@@ -7,3 +7,20 @@ exports.getMovies = (req, res, next) => {
     })
     .catch(err => console.error(err));
 }
+
+exports.detailMovie = (req, res, next) => {
+    const {movieId} = req.params;
+    Movie.findById(movieId)
+    .then(movie => {
+        res.render('detail', {movie})
+    })
+    .catch(err => next(err))
+}
+exports.deleteMovie = (req, res, next) => {
+    const {movieId} = req.params;
+    Movie.findByIdAndDelete(movieId)
+    .then(movie => {
+        res.render('movies', {movie})
+    })
+    .catch(err => next(err))
+}
